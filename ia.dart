@@ -4,11 +4,15 @@ import 'problema.dart';
 
 main() {
   Problema problema = Problema();
-  buscaEmArvore(problema, []);
+  try {
+    buscaEmArvore(problema, []);
+  } catch (e) {
+    print('Aconteceu algum problema: $e');
+  }
 }
 
-No criarNo(String estadoInicial, No? noPai, Acao? acao, int custo,
-        int profundidade) =>
+No criarNo(String estadoInicial,
+        [No? noPai, Acao? acao, int custo = 0, int profundidade = 0]) =>
     No(
       estado: estadoInicial,
       noPai: noPai,
@@ -20,11 +24,10 @@ No criarNo(String estadoInicial, No? noPai, Acao? acao, int custo,
 List<No> buscaEmArvore(Problema problema, List<No> borda) {
   List<No> solucao = [];
 
-  borda.add(criarNo(problema.estadoInicial, null, null, 0, 0));
+  borda.add(criarNo(problema.estadoInicial));
   while (solucao.isEmpty) {
     if (borda.isEmpty) throw 'Falha: borda está vazia';
     No no = borda.removeAt(0);
-    solucao.add(no);
     if (problema.estadoObjetivo == no.estado) return solucao..add(no);
 
     borda.addAll(expandir(no, problema));
@@ -34,5 +37,6 @@ List<No> buscaEmArvore(Problema problema, List<No> borda) {
 
 Iterable<No> expandir(No no, Problema problema) {
   var sucessores = <No>[];
+  print('teste');
   return sucessores;
 }
